@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Do Androids Dream of Electric Sheep?</title>
+</head>
+<body class="body-books">
+    <!-- Container for loaded paragraphs -->
+    <div id="content"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const response = await fetch("../../pages.html");
+                const text = await response.text();
+    
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+    
+                // query for h3 instead of p
+                const headings = doc.querySelectorAll('h3');
+    
+                const contentDiv = document.getElementById('content');
+                headings.forEach(h => contentDiv.appendChild(h.cloneNode(true)));
+            } catch (error) {
+                console.error('Error loading file:', error);
+            }
+        });
+    </script>
+    
+</body>
+</html>
